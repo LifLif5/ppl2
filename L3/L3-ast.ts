@@ -2,7 +2,7 @@
 // AST type models
 import { map, zipWith } from "ramda";
 import { makeEmptySExp, makeSymbolSExp, SExpValue, makeCompoundSExp, valueToString } from './L3-value'
-import { first, second, rest, allT, isEmpty, isNonEmptyList, List, cons } from "../shared/list";
+import { first, second, rest, allT, isEmpty, isNonEmptyList, List } from "../shared/list";
 import { isArray, isString, isNumericString, isIdentifier } from "../shared/type-predicates";
 import { Result, makeOk, makeFailure, bind, mapResult, mapv } from "../shared/result";
 import { parse as p, isSexpString, isToken, isCompoundSexp } from "../shared/parser";
