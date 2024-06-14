@@ -43,8 +43,7 @@ export const expToNoClassExp = (exp: CExp): CExp =>
     
 /*
 Purpose: Transform all class forms in the given AST to procs
-Si
-gnature: lexTransform(AST)
+Signature: lexTransform(AST)
 Type: [Exp | Program] => Result<Exp | Program>
 */
 export const lexTransform = (exp: Exp | Program): Result<Exp | Program> =>
