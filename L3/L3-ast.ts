@@ -179,7 +179,7 @@ export const parseL3SpecialForm = (op: Sexp, params: Sexp[]): Result<CExp> =>
         isNonEmptyList<Sexp>(params) ? parseLitExp(first(params)) :
         makeFailure(`Bad quote exp: ${params}`) :
     op === "class" ?
-        isNonEmptyList<Sexp>(params) ? parseClassExp(first(params), rest(params)) :
+        isNonEmptyList<Sexp>(params) ? parseClassExp(first(params), second(params)) :
         makeFailure(`Bad class exp: ${params}`) :
 
     makeFailure("Never");
@@ -266,16 +266,14 @@ export const parseLitExp = (param: Sexp): Result<LitExp> =>
     mapv(parseSExp(param), (sexp: SExpValue) => 
          makeLitExp(sexp));
 
-export const parseClassExp = (fields: Sexp, methods: Sexp[]): Result<ClassExp> => {
-      
-    const methods1 = methods[0];
+export const parseClassExp = (fields: Sexp, methods: Sexp): Result<ClassExp> => {
 
-    if (!isGoodBindings(methods1) || !isArray(fields) || !allT(isString,fields))
+    if (!isGoodBindings(methods) || !isArray(fields) || !allT(isString,fields))
         return makeFailure('Malformed fields in "class" expression');
 
-    const vars = map(b => b[0] as string, methods1);
-    const valsResult = mapResult(parseL3CExp, map(second, methods1));
-    const bindingsResult = mapv(valsResult, (vals: CExp[]) => zipWith(makeBinding, vars, vals));
+    const names = map(b => b[0] as string, methods);
+    const values = mapResult(parseL3CExp, map(second, methods));
+    const bindingsResult = mapv(values, (vals: CExp[]) => zipWith(makeBinding, names, vals));
     
     return bind(bindingsResult, (bindings: Binding[]) => 
                 makeOk(makeClassExp(map(makeVarDecl,fields), bindings)));
