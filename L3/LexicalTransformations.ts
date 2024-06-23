@@ -8,7 +8,8 @@ import { makeSymbolSExp } from "./L3-value";
 
 
 export const method2test = (method: Binding): CExp =>{
-    return makeAppExp(makePrimOp("eq?"),[makeVarRef("msg"),makeLitExp("'" + method.var.var)]);
+    //return makeAppExp(makePrimOp("eq?"),[makeVarRef("msg"),makeLitExp("'" + method.var.var)]);
+    return makeAppExp(makePrimOp("eq?"),[makeVarRef("msg"), valueToLitExp(makeSymbolSExp(method.var.var))]);
 }
 
 export const method2then = (method: Binding): CExp =>{
