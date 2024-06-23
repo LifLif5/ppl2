@@ -4,6 +4,7 @@ import{ makePrimOp , makeVarRef, makeLitExp,IfExp,isClassExp,isExp,makeProgram,B
 import { Result, makeOk, makeFailure, bind, mapResult, mapv } from "../shared/result";
 import { map, zipWith ,reduce,reverse} from "ramda";
 import { isAtomicExp, isProcExp, isIfExp, isAppExp, isPrimOp, isLetExp, isDefineExp, isProgram } from "./L3-ast";
+import { makeSymbolSExp } from "./L3-value";
 
 
 export const method2test = (method: Binding): CExp =>{
